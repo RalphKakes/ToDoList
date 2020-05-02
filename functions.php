@@ -11,13 +11,19 @@ function getAllData ($columns, $table) {
     return $result;
 }
 
-function getDataById ($columns, $table, $id) {
-    $conn = openCon();
-    $query = $conn->prepare("SELECT $columns FROM $table WHERE id = $id");
-    $query->execute();
+function getDataByColumn ($columns, $table, $column, $value) {
+    $conn = OpenCon();
+    $query = $conn->prepare("SELECT $columns FROM $table WHERE $column = :value");
+    $query->execute([':value'=>$value]);
     $query->setFetchMode(PDO::FETCH_ASSOC);
-    $result = $query->fetch();
+    $result = $query->fetchAll();
     $conn = null;
     return $result;
 }
 
+function addList ($listName) {
+    $conn = OpenCon();
+    $query = $conn->prepare("INSERT INTO todo (name) VALUES (:name)");
+    $query->execute([':name'=>$listName]);
+    $conn = null;
+}
