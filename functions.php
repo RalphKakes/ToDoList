@@ -27,3 +27,8 @@ function addList ($listName) {
     $query->execute([':name'=>$listName]);
     $conn = null;
 }
+
+function getDataById(){
+    $conn = openCon();
+
+}

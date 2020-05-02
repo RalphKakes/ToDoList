@@ -17,18 +17,27 @@ include 'functions.php';
 <h1>Yeet</h1>
 <form action="addList.php" method="post" id="addListForm">
     <div class="form-group m-0">
-        <input name="listName" type="text" class="form-control" autocomplete="off" placeholder="Vul de naam in van de lijst">
+        <input required name="listName" type="text" class="form-control" autocomplete="off" placeholder="Vul de naam in van de lijst">
     </div>
 </form>
-      <?php  foreach (getAllData('*', 'todo') as $todo) { ?>
-       <details>
-        <summary><?= $todo['name'] ?></summary>
-            <?php } ?>
+<?php  foreach (getAllData('*', 'todo') as $todo) { ?>
+<details>
+    <summary><?= $todo['name'] ?></summary>
 
-            <?php  foreach (getAllData('*', 'task') as $task) { ?>
-                <p><?= $task['id'] ?></p>
-                <p><?= $task['taskdesc'] ?></p>
+    <?php  foreach (getDataByColumn('*', 'task', 'list_id', $todo["id"]) as $task) { ?>
+        <p><?= $task['id'] ?></p>
+        <p><?= $task['taskdesc'] ?></p>
+        <p><?= $task['time'] ?></p>
+        <p><?= $task['list_id'] ?></p>
+        <form action="addTask.php" method="post">
+            <div class="form-group">
+                <input required name="taskDesc" type="text" autocomplete="off" class="form-control" placeholder="Zet hier je taak omschrijving neer">
+                <input required name="taskDuration" type="number" autocomplete="off" class="form-control" placeholder="Zet hier de duur van de taak in">
+                <input type="submit" class="btn btn-primary">
+            </div>
+        </form>
+    <?php } ?>
+</details>
 <?php } ?>
 </body>
 </html>
-
