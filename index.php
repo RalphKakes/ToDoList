@@ -9,7 +9,7 @@ include 'functions.php';
     <meta charset="utf-8">
     <title>ToDoList</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://kit.fontawesome.com/2f6bc0b605.js" crossorigin="anonymous">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 
@@ -23,19 +23,30 @@ include 'functions.php';
 <?php  foreach (getAllData('*', 'todo') as $todo) { ?>
 <details>
     <summary><?= $todo['name'] ?></summary>
+    <h3>Voeg nieuwe taken toe:</h3>
+    <form action="addTask.php" method="post">
+        <div class="form-group">
+            <input required name="taskDesc" type="text" autocomplete="off" class="form-control" placeholder="Zet hier je taak omschrijving neer">
+            <input required name="taskDuration" type="number" autocomplete="off" class="form-control" placeholder="Zet hier de duur van de taak in">
+            <input name="listId" type="hidden" value="<?= $todo['id']?>" class="form-control">
+            <input name="taskStatus" type="hidden" value="<?= $task['status']?>" class="form-control">
+            <input type="submit" class="btn btn-primary">
+        </div>
+    </form>
 
     <?php  foreach (getDataByColumn('*', 'task', 'list_id', $todo["id"]) as $task) { ?>
-        <p><?= $task['id'] ?></p>
-        <p><?= $task['taskdesc'] ?></p>
-        <p><?= $task['time'] ?></p>
-        <p><?= $task['list_id'] ?></p>
-        <form action="addTask.php" method="post">
-            <div class="form-group">
-                <input required name="taskDesc" type="text" autocomplete="off" class="form-control" placeholder="Zet hier je taak omschrijving neer">
-                <input required name="taskDuration" type="number" autocomplete="off" class="form-control" placeholder="Zet hier de duur van de taak in">
-                <input type="submit" class="btn btn-primary">
-            </div>
-        </form>
+        <h4>Omschrijving</h4>
+        <p><?= $task['taskDesc'] ?></p>
+        <h4>Duur</h4>
+        <p><?= $task['taskDur'] ?></p>
+        <h4>Status</h4>
+        <?php if ($task['status'] == 0){ ?>
+        <p>Not done</p>
+       <?php  } else { ?>
+            <p>Done</p>
+        <?php } ?>
+
+
     <?php } ?>
 </details>
 <?php } ?>

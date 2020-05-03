@@ -12,7 +12,7 @@ function getAllData ($columns, $table) {
 }
 
 function getDataByColumn ($columns, $table, $column, $value) {
-    $conn = OpenCon();
+    $conn = openCon();
     $query = $conn->prepare("SELECT $columns FROM $table WHERE $column = :value");
     $query->execute([':value'=>$value]);
     $query->setFetchMode(PDO::FETCH_ASSOC);
@@ -22,13 +22,16 @@ function getDataByColumn ($columns, $table, $column, $value) {
 }
 
 function addList ($listName) {
-    $conn = OpenCon();
+    $conn = openCon();
     $query = $conn->prepare("INSERT INTO todo (name) VALUES (:name)");
     $query->execute([':name'=>$listName]);
     $conn = null;
 }
 
-function getDataById(){
+function addTask($taskDescription, $taskDuration, $listId, $taskStatus){
     $conn = openCon();
-
+    $query = $conn->prepare("INSERT INTO task (taskDesc, taskDur, list_id, status) VALUES (:taskdescription, :taskduration, :listid, :taskstatus)");
+    $query->execute([':taskdescription'=>$taskDescription, ':taskduration'=>$taskDuration, ':listid'=>$listId, ':taskstatus'=>$taskStatus]);
+    $conn = null;
 }
+
