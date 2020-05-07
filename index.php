@@ -9,7 +9,7 @@ include 'functions.php';
     <meta charset="utf-8">
     <title>ToDoList</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 
@@ -21,6 +21,14 @@ include 'functions.php';
     </div>
 </form>
 <?php  foreach (getAllData('*', 'todo') as $todo) { ?>
+    <i class="fa fas fa-edit"></i>
+<form action="editList.php" method="post">
+    <div class="form-group">
+        <input name="listId" type="hidden" autocomplete="off" value="<?= $todo['id']?>" class="form-control">
+        <input value="<?= $todo['name'] ?>" required name="editlistName" type="text" class="form-control" autocomplete="off" placeholder="Vul de nieuwe naam in van de lijst">
+        <input type="submit" class="btn btn-primary">
+    </div>
+</form>
 <details>
     <summary><?= $todo['name'] ?></summary>
     <h3>Voeg nieuwe taken toe:</h3>
@@ -42,8 +50,8 @@ include 'functions.php';
         <h4>Status</h4>
         <?php if ($task['status'] == 0){ ?>
         <p>Not done</p>
-       <?php  } else { ?>
-            <p>Done</p>
+        <?php  } else { ?>
+        <p>Done</p>
         <?php } ?>
 
 
