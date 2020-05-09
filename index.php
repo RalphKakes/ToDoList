@@ -9,8 +9,9 @@ include 'functions.php';
     <meta charset="utf-8">
     <title>ToDoList</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="script.js"></script>
 </head>
 
 <body>
@@ -21,14 +22,15 @@ include 'functions.php';
     </div>
 </form>
 <?php  foreach (getAllData('*', 'todo') as $todo) { ?>
-    <i class="fa fas fa-edit"></i>
+
 <form action="editList.php" method="post">
-    <div class="form-group">
+    <div class="form-group hideEdit" id="editList<?= $todo['id']?>">
         <input name="listId" type="hidden" autocomplete="off" value="<?= $todo['id']?>" class="form-control">
-        <input value="<?= $todo['name'] ?>" required name="editlistName" type="text" class="form-control" autocomplete="off" placeholder="Vul de nieuwe naam in van de lijst">
-        <input type="submit" class="btn btn-primary">
+        <input value="<?= $todo['name'] ?>" required name="editlistName" type="text" class="form-control " autocomplete="off" placeholder="Vul de nieuwe naam in van de lijst">
+        <input type="submit" class="btn btn-primary ">
     </div>
 </form>
+    <i class="fa fas fa-edit" onclick="showInput(<?= $todo['id'] ?>)"></i>
 <details>
     <summary><?= $todo['name'] ?></summary>
     <h3>Voeg nieuwe taken toe:</h3>
