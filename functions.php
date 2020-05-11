@@ -42,3 +42,17 @@ function editList ($listId, $editListName) {
     $conn = null;
 }
 
+function deleteList ($listId) {
+    $conn = openCon();
+    $query = $conn->prepare("DELETE FROM todo WHERE id = :listId");
+    $query->execute([':listId'=>$listId]);
+    $conn = null;
+}
+
+function deleteTasksInList ($taskId) {
+
+    $conn = OpenCon();
+    $query = $conn->prepare("DELETE FROM task WHERE list_id = :listId");
+    $query->execute([':listId'=>$taskId]);
+    $conn = null;
+}

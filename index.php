@@ -31,6 +31,7 @@ include 'functions.php';
     </div>
 </form>
     <i class="fa fas fa-edit" onclick="showInput(<?= $todo['id'] ?>)"></i>
+    <a href="deleteList.php?listId=<?= $todo['id']?>"><i class="fa fas fa-trash"></i></a>
 <details>
     <summary><?= $todo['name'] ?></summary>
     <h3>Voeg nieuwe taken toe:</h3>
