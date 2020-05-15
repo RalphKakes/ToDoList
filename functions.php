@@ -62,3 +62,10 @@ function editTaskDesc ($editTaskDesc, $listId) {
     $query->execute([':taskdesc'=>$editTaskDesc, ':listId'=>$listId]);
     $conn = null;
 }
+
+function editTaskDur ($editTaskDur, $listId) {
+    $conn = openCon();
+    $query = $conn->prepare("UPDATE task SET taskDur = :taskdur WHERE id = :listId");
+    $query->execute([':taskdur'=>$editTaskDur, ':listId'=>$listId]);
+    $conn = null;
+}

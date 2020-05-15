@@ -64,6 +64,14 @@ include 'functions.php';
         <i class="fa fas fa-edit"></i>
         <h4>Duur</h4>
         <p><?= $task['taskDur'] ?></p>
+        <form action="editDur.php" method="post">
+            <div class="form-group " id="editList">
+                <input value="<?= $task['taskDur'] ?>" required name="editTaskDur" type="number" class="form-control " autocomplete="off" placeholder="Vul de nieuwe naam in van de taak omschrijving">
+                <input name="taskId" type="hidden" autocomplete="off" value="<?= $task['id']?>" class="form-control">
+                <input type="submit" class="btn btn-primary ">
+            </div>
+        </form>
+        <i class="fa fas fa-edit"></i>
         <h4>Status</h4>
     <?php if ($task['status'] == 0){ ?>
         <p>Not done</p>
