@@ -50,9 +50,15 @@ function deleteList ($listId) {
 }
 
 function deleteTasksInList ($taskId) {
-
     $conn = OpenCon();
     $query = $conn->prepare("DELETE FROM task WHERE list_id = :listId");
     $query->execute([':listId'=>$taskId]);
+    $conn = null;
+}
+
+function editTaskDesc ($editTaskDesc, $listId) {
+    $conn = openCon();
+    $query = $conn->prepare("UPDATE task SET taskDesc = :taskdesc WHERE id = :listId");
+    $query->execute([':taskdesc'=>$editTaskDesc, ':listId'=>$listId]);
     $conn = null;
 }
