@@ -69,3 +69,10 @@ function editTaskDur ($editTaskDur, $listId) {
     $query->execute([':taskdur'=>$editTaskDur, ':listId'=>$listId]);
     $conn = null;
 }
+
+function deleteTask ($taskId) {
+    $conn = openCon();
+    $query = $conn->prepare("DELETE FROM task WHERE id = :taskId");
+    $query->execute([':taskId'=>$taskId]);
+    $conn = null;
+}

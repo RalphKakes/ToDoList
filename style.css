@@ -2,6 +2,10 @@
     display: none;
 }
 
-hideTaskDesc{
+.hideTaskDesc{
+    display: none;
+}
+
+.hideTaskDur{
     display: none;
 }

@@ -1,9 +1,14 @@
-function showInput(listId) {
+function showInput(listId){
     let editList = document.getElementById("editList" + listId);
     editList.classList.remove("hideEdit");
 }
 
-function showTaskEdit(taskId){
-    let editTask = document.getElementById("editTask" + taskId);
+function showTaskDesc(taskId){
+    let editTask = document.getElementById("editTaskDesc" + taskId);
     editTask.classList.remove("hideTaskDesc");
+}
+
+function showTaskDur(taskId){
+    let editTask = document.getElementById("editTaskDur" + taskId);
+    editTask.classList.remove("hideTaskDur");
 }
