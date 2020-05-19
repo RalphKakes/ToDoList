@@ -76,3 +76,10 @@ function deleteTask ($taskId) {
     $query->execute([':taskId'=>$taskId]);
     $conn = null;
 }
+
+function editTaskStatus ($editTaskStatus, $listId) {
+    $conn = openCon();
+    $query = $conn->prepare("UPDATE task SET status = :taskstatus WHERE id = :listId");
+    $query->execute([':taskstatus'=>$editTaskStatus, ':listId'=>$listId]);
+    $conn = null;
+}

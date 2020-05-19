@@ -79,6 +79,13 @@ include 'functions.php';
         <?php  } else { ?>
         <p>Done</p>
         <?php } ?>
+        <form action="editStatus.php" method="post">
+            <div class="form-group hideTaskStatus" id="editStatus<?= $task['id']?>">
+                <input value="1" required name="editTaskStatus" type="checkbox" class="form-control " autocomplete="off" placeholder="Vul de nieuwe naam in van de taak omschrijving">
+                <input name="taskId" type="hidden" autocomplete="off" value="<?= $task['id']?>" class="form-control">
+                <input type="submit" class="btn btn-primary ">
+            </div>
+        </form>
 
 
     <?php } ?>
