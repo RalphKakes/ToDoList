@@ -21,6 +21,16 @@ function getDataByColumn ($columns, $table, $column, $value) {
     return $result;
 }
 
+function sortByStatus ($listid) {
+    $conn = openCon();
+    $query = $conn->prepare("SELECT * FROM task WHERE list_id = :listid ORDER BY `task`.`status` DESC");
+    $query->execute([':listid'=>$listid]);
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+    $result = $query->fetchAll();
+    $conn = null;
+    return $result;
+}
+
 function addList ($listName) {
     $conn = openCon();
     $query = $conn->prepare("INSERT INTO todo (name) VALUES (:name)");
@@ -32,6 +42,20 @@ function addTask ($taskDescription, $taskDuration, $listId, $taskStatus){
     $conn = openCon();
     $query = $conn->prepare("INSERT INTO task (taskDesc, taskDur, list_id, status) VALUES (:taskdescription, :taskduration, :listid, :taskstatus)");
     $query->execute([':taskdescription'=>$taskDescription, ':taskduration'=>$taskDuration, ':listid'=>$listId, ':taskstatus'=>$taskStatus]);
+    $conn = null;
+}
+
+function editTask ($taskDesc, $taskDuration, $taskStatus, $taskId) {
+    $conn = openCon();
+    $query = $conn->prepare("UPDATE task SET taskDesc = :taskDesc, taskDur = :taskDur, status = :taskStatus WHERE id = :taskId");
+    $query->execute([':taskDesc'=>$taskDesc, ':taskDur'=>$taskDuration, ':taskStatus'=>$taskStatus, ':taskId'=>$taskId]);
+    $conn = null;
+}
+
+function deleteTask ($id){
+    $conn = openCon();
+    $query = $conn->prepare("DELETE FROM task WHERE id = :taskId");
+    $query->execute([':taskId'=>$id]);
     $conn = null;
 }
 
@@ -56,30 +80,5 @@ function deleteTasksInList ($taskId) {
     $conn = null;
 }
 
-function editTaskDesc ($editTaskDesc, $listId) {
-    $conn = openCon();
-    $query = $conn->prepare("UPDATE task SET taskDesc = :taskdesc WHERE id = :listId");
-    $query->execute([':taskdesc'=>$editTaskDesc, ':listId'=>$listId]);
-    $conn = null;
-}
 
-function editTaskDur ($editTaskDur, $listId) {
-    $conn = openCon();
-    $query = $conn->prepare("UPDATE task SET taskDur = :taskdur WHERE id = :listId");
-    $query->execute([':taskdur'=>$editTaskDur, ':listId'=>$listId]);
-    $conn = null;
-}
 
-function deleteTask ($taskId) {
-    $conn = openCon();
-    $query = $conn->prepare("DELETE FROM task WHERE id = :taskId");
-    $query->execute([':taskId'=>$taskId]);
-    $conn = null;
-}
-
-function editTaskStatus ($editTaskStatus, $listId) {
-    $conn = openCon();
-    $query = $conn->prepare("UPDATE task SET status = :taskstatus WHERE id = :listId");
-    $query->execute([':taskstatus'=>$editTaskStatus, ':listId'=>$listId]);
-    $conn = null;
-}
