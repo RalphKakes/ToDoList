@@ -45,8 +45,9 @@ include 'functions.php';
             <i class="fa fas fa-edit" onclick="showInput(<?= $todo['id'] ?>)"></i>
             <a href="deleteList.php?listId=<?= $todo['id']?>"><i class="fa fas fa-trash"></i></a>
             <div class="flex">
-                <button onclick="document.getElementById('status').style.display = 'block', document.getElementById('nothing').style.display = 'none'" class="text-sm py-1 px-2 bg-green-500 text-white hover:bg-green-600 transition ease-in-out duration-100 rounded-lg mr-2">Sort by status</button>
-                <button onclick="document.getElementById('nothing').style.display = 'block', document.getElementById('status').style.display = 'none'" class="text-sm py-1 px-2 bg-green-500 text-white hover:bg-green-600 transition ease-in-out duration-100 rounded-lg ml-2">Sort by nothing</button>
+                <button onclick="document.getElementById('status').style.display = 'block', document.getElementById('nothing').style.display = 'none', document.getElementById('duration').style.display = 'none'" class="text-sm py-1 px-2 bg-green-500 text-white hover:bg-green-600 transition ease-in-out duration-100 rounded-lg mr-2">Sort by status</button>
+                <button onclick="document.getElementById('nothing').style.display = 'block', document.getElementById('status').style.display = 'none', document.getElementById('duration').style.display = 'none'" class="text-sm py-1 px-2 bg-green-500 text-white hover:bg-green-600 transition ease-in-out duration-100 rounded-lg ml-2">Sort by nothing</button>
+                <button onclick="document.getElementById('duration').style.display = 'block', document.getElementById('nothing').style.display = 'none', document.getElementById('status').style.display = 'none'" class="text-sm py-1 px-2 bg-green-500 text-white hover:bg-green-600 transition ease-in-out duration-100 rounded-lg ml-2">Sort by duration</button>
             </div>
                 <summary><?= $todo['name'] ?></summary>
                 <details>
@@ -141,6 +142,52 @@ include 'functions.php';
                         </form>
                     </div>
                 <?php } ?>
+                </div>
+                <div id="duration" style="display: none">
+                    <?php foreach ( sortByDuration($todo["id"]) as $task) { ?>
+                        <div class="my-3">
+                            <div style="height: 1px" class="w-full bg-black mt-2"></div>
+                            <form action="editTask.php" method="post" class="my-3">
+                                <input name="taskId" type="hidden" value="<?= $task['id']?>" class="form-control">
+                                <div class="w-2/12">
+                                    <div class="flex w-full">
+                                        <div class="w-1/2">
+                                            <h1 class="text-sm font-semibold">TaskID:</h1>
+                                        </div>
+                                        <div class="w-1/2">
+                                            <input name="taskId" disabled value="<?= $task['id'] ?>" class="text-sm">
+                                        </div>
+                                    </div>
+                                    <div class="flex w-full">
+                                        <div class="w-1/2">
+                                            <h1 class="text-sm font-semibold">Description:</h1>
+                                        </div>
+                                        <div class="w-1/2">
+                                            <input name="taskDesc" value="<?= $task['taskDesc'] ?>" class="text-sm">
+                                        </div>
+                                    </div>
+                                    <div class="flex w-full">
+                                        <div class="w-1/2">
+                                            <h1 class="text-sm font-semibold">Duration:</h1>
+                                        </div>
+                                        <div class="w-1/2">
+                                            <input name="taskDuration" value="<?= $task['taskDur'] ?>" class="text-sm">
+                                        </div>
+                                    </div>
+                                    <div class="flex w-full">
+                                        <div class="w-1/2">
+                                            <h1 class="text-sm font-semibold">Status:</h1>
+                                        </div>
+                                        <div class="w-1/2">
+                                            <input name="taskStatus" value="<?= $task['status'] ?>" class="text-sm">
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="text-sm py-1 px-2 bg-green-500 text-white hover:bg-green-600 transition ease-in-out duration-100 rounded-lg">Save</button>
+                                    <a class="text-sm py-1 px-2 bg-red-500 text-white hover:bg-red-600 transition ease-in-out duration-100 rounded-lg" href="deleteTask.php?taskId=<?= $task['id']?>">Delete</a>
+                                </div>
+                            </form>
+                        </div>
+                    <?php } ?>
                 </div>
                 <div style="height: 1px" class="w-full bg-black mb-2"></div>
                 <h1 class="text-sm font-semibold mt-4 mb-1">Adding a new task</h1>

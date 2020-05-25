@@ -31,6 +31,16 @@ function sortByStatus ($listid) {
     return $result;
 }
 
+function sortByDuration ($listid) {
+    $conn = openCon();
+    $query = $conn->prepare("SELECT * FROM task WHERE list_id = :listid ORDER BY `task`.`taskDur` ASC");
+    $query->execute([':listid'=>$listid]);
+    $query->setFetchMode(PDO::FETCH_ASSOC);
+    $result = $query->fetchAll();
+    $conn = null;
+    return $result;
+}
+
 function addList ($listName) {
     $conn = openCon();
     $query = $conn->prepare("INSERT INTO todo (name) VALUES (:name)");
